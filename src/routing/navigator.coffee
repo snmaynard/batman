@@ -26,19 +26,13 @@ class Batman.Navigator
   handleCurrentLocation: => @handleLocation(window.location)
   dispatch: (params) ->
     @cachedPath = @app.get('dispatcher').dispatch(params)
-    @cachedPath = @_lastRedirect if @_lastRedirect
-    @cachedPath
   push: (params) ->
-    pathFromParams = @app.get('dispatcher').pathFromParams?(params)
-    @_lastRedirect = pathFromParams if pathFromParams
     path = @dispatch(params)
-    @pushState(null, '', path) if !@_lastRedirect or @_lastRedirect is path
+    @pushState(null, '', path)
     path
   replace: (params) ->
-    pathFromParams = @app.get('dispatcher').pathFromParams?(params)
-    @_lastRedirect = pathFromParams if pathFromParams
     path = @dispatch(params)
-    @replaceState(null, '', path) if !@_lastRedirect or @_lastRedirect is path
+    @replaceState(null, '', path)
     path
   redirect: @::push
   normalizePath: (segments...) ->
