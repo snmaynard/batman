@@ -101,10 +101,10 @@ class Batman.View extends Batman.Object
       false
 
   applyYields: ->
-    @get('yields').forEach (name, nodes) ->
+    @get('yields').forEach (name, nodes) =>
       yieldObject = Batman.DOM.Yield.withName(name)
       for {node, action} in nodes
-        yieldObject[action](node)
+        yieldObject[action](node, @get('node')?.querySelector("[data-yield='#{name}']"))
 
   retractYields: ->
     @get('yields').forEach (name, nodes) ->

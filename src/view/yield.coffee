@@ -42,7 +42,8 @@ Batman.DOM.Yield = class Yield extends Batman.Object
     for child in (child for child in @containerNode.childNodes) when !~@currentVersionNodes.indexOf(child)
       Batman.DOM.removeOrDestroyNode(child)
 
-  append:  @queued (node) ->
+  append:  @queued (node, parent) ->
+    @containerNode = parent if parent? && parent != @containerNode
     @currentVersionNodes.push node
     Batman.DOM.appendChild @containerNode, node, true
 
